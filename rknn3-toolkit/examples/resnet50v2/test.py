@@ -80,7 +80,10 @@ if __name__ == '__main__':
     # pre-process config
     print('--> config model')
     rknn.config(mean_values=[123.675, 116.28, 103.53], std_values=[58.82, 58.82, 58.82], target_platform='rk1820',
-                input_attrs={'data': {'dtype': 'uint8', 'layout': 'NHWC'}})
+                input_attrs={'data': {'dtype': 'uint8', 'layout': 'NHWC'}},
+                quantized_dtype='w8a8', 
+                quantized_algorithm='normal',
+                quantized_method='channel')
     print('done')
 
     # Load model

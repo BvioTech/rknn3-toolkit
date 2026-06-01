@@ -22,6 +22,8 @@
 1. 将 `Qwen3-1.7B_quant.rknn` 和配套的 `Qwen3-1.7B_quant.weight` 放到设备或工作目录中。
 2. 将 `Qwen3-1.7B.embed.bin` 放到可访问路径，并确认 embedding 的尺寸和脚本中 `VOCAB_SIZE` 一致。
 3. 把 tokenizer 文件夹（例如 `Qwen3-1.7B-Base`）放在 `examples/Qwen3/` 下
+
+注意：Tokenizer 建议从 HuggingFace 下载原始模型文件，并参照已有`Qwen3-1.7B-Base`文件夹里面内容，将必要的 JSON 配置文件复制到对应目录中。
 ## 3. 运行示例脚本
 
 两个示例脚本都有命令行参数来指定模型、tokenizer、embed 路径：

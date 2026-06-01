@@ -240,7 +240,10 @@ if __name__ == '__main__':
     # pre-process config
     print('--> Config model')
     rknn.config(mean_values=[[0, 0, 0]], std_values=[[255, 255, 255]], target_platform='rk1820',
-                input_attrs={'images': {'dtype': 'uint8', 'layout': 'NHWC'}})
+                input_attrs={'images': {'dtype': 'uint8', 'layout': 'NHWC'}},
+                quantized_dtype='w8a8', 
+                quantized_algorithm='normal',
+                quantized_method='channel')
     print('done')
 
     # Load ONNX model

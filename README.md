@@ -2,7 +2,7 @@
 
 # Introduction
 
-RKNN3 SDK provides the complete software stack for deploying AI models on RK1820/RK1828 coprocessors, including:
+RKNN3 SDK provides the complete software stack for deploying AI models on RK1820/RK1828/RK3572, including:
 
 - **[RKNN3-Toolkit](https://github.com/airockchip/rknn3-toolkit)**: PC-side software development kit for model conversion, inference, performance evaluation, etc.
 - **RKNN3 Runtime**: On-board runtime library providing C/C++ programming interfaces for deploying RKNN models and accelerating AI applications.
@@ -16,6 +16,7 @@ RKNN3 SDK provides the complete software stack for deploying AI models on RK1820
 
 - RK1820
 - RK1828
+- RK3572
 
 **Note**:
 
@@ -44,6 +45,7 @@ RKNN3 SDK provides the complete software stack for deploying AI models on RK1820
  - [x] Qwen3-0.6B / 1.7B / 4B / 8B
  - [x] HY-MT1.5-1.8B
  - [x] Youtu-LLM-2B
+ - [x] GLM-Edge
  - [x] Qwen2.5-VL-3B / 7B
  - [x] Qwen2.5-Omni-3B (Thinker)
  - [x] Qwen3-VL-2B / 4B
@@ -51,14 +53,23 @@ RKNN3 SDK provides the complete software stack for deploying AI models on RK1820
  - [x] InternVL3-2B
  - [x] InternVL3.5-4B
  - [x] MiMo-VL-7B-RL
+ - [x] Gemma4
+ - [x] SmolVLM
+ - [x] SmolVLM2
+ - [x] UI_TARS
+ - [x] PaddleOCR VL
  - [x] Qwen3-Reranker-0.6B / 4B
  - [x] Qwen3-Embedding-4B
- - [x] GLM-Edge
- - [x] SmolVLM
- - [x] UI_TARS
  - [x] gme-Qwen2-VL-2B
+ - [x] Qwen3-ASR
+ - [x] Qwen3_TTS
+ - [x] VITS
+ - [x] Whisper
+ - [x] SenseVoice
+ - [x] Zipformer
  - [x] SigLIP
  - [x] SigLIP2
+ - [x] MetaCLIP2
  - [x] DINOv2
  - [x] DINOv3
  - [x] MobileNetV1 / V2
@@ -66,8 +77,7 @@ RKNN3 SDK provides the complete software stack for deploying AI models on RK1820
  - [x] YOLOv5 / YOLOv6 / YOLOv8
  - [x] YOLO-World
  - [x] Diffusion Policy
- - [x] Whisper
- - [x] SenseVoice
+ - [x] GR00T
 
 
 # Performance
@@ -85,24 +95,34 @@ For performance data, please refer to the [Release Notes](doc/00_Rockchip_RK182X
 - Python 3.10
 - Python 3.12
 
-# Latest Version: V1.0.0
+# Latest Version: V1.0.4
 
 
 # Changelog
 
-## V1.0.0
-- Significantly improved LLM/ViT performance; overall LLM decode performance improved by more than 15%.
-- Expanded model support range, adding models such as Qwen3-VL / Qwen2.5-Omni(Thinker) / GLM Edge / SmolVLM.
-- Added support for cross-board accuracy analysis.
-- Added support for overlapping data transfer and inference.
-- Added support for mRoPE.
-- Added support for Function Call.
-- Added support for YUV-format input.
-- `rkllm3-server` now supports embedding models and audio input.
-- Added support for concurrent multi-core, multi-model inference.
-- Added support for custom model post-processing on the coprocessor.
-- Optimized implementation of exSDPA, exMatMul, Resize, Transpose operators.
-- Provides RKNN3 Toolkit Lite package to support Python API calls on development boards.
+## V1.0.4
+- Added RK3572 platform support (Beta)
+- Added Windows platform support
+- Added Ethernet communication type support
+- Added device suspension and wake-up support
+- Added server-side auto-select communication method
+- Added streaming weight loading support
+- Added model encryption support
+- Added LoRA support
+- Added session pause/resume support
+- Added session input callback support
+- Added multi-session parallel running support
+- Added KVCache import/export interface
+- Added module version compatibility check
+- Added Qwen3 TTS text-to-speech model
+- Added Qwen3-ASR speech recognition model
+- Added VITS audio synthesis model
+- Added Zipformer model
+- Added MetaCLIP2 model
+- Added Gemma4 multimodal model
+- Added GR00T model
+- Added PaddleOCR VL model
+- Added SmolVLM2 vision-language model
 
 
 # Feedback and Community Support

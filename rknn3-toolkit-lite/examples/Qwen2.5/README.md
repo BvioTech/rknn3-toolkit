@@ -23,6 +23,8 @@
 2. 将 `.embed.bin` 放到可访问路径，并确认 embedding 的尺寸和脚本中 `VOCAB_SIZE` 一致。
 3. 把 tokenizer 文件夹放在 `examples/Qwen2.5/` 下。
 
+注意：Tokenizer 建议从 HuggingFace 下载原始模型文件，并参照其他大模型demo的tokenizer文件夹里面内容，将必要的 JSON 配置文件复制到对应目录中。
+
 ## 3. 运行示例脚本
 
 两个示例脚本都有命令行参数来指定模型、tokenizer、embed 路径：

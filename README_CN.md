@@ -2,7 +2,7 @@
 
 # 简介
 
-RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完整软件栈，包括：
+RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828/RK3572 所需的完整软件栈，包括：
 
 - **[RKNN3-Toolkit](https://github.com/airockchip/rknn3-toolkit)**：PC 端软件开发套件，支持模型转换、推理和性能评估等。
 - **RKNN3 Runtime**：板端运行时库，提供 C/C++ 编程接口，用于部署 RKNN 模型并加速 AI 应用。
@@ -16,6 +16,7 @@ RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完
 
   - RK1820
   - RK1828
+  - RK3572
 
 **注意**： 
 
@@ -44,6 +45,7 @@ RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完
  - [x] Qwen3-0.6B / 1.7B / 4B / 8B
  - [x] HY-MT1.5-1.8B
  - [x] Youtu-LLM-2B
+ - [x] GLM-Edge
  - [x] Qwen2.5-VL-3B / 7B
  - [x] Qwen2.5-Omni-3B (Thinker)
  - [x] Qwen3-VL-2B / 4B
@@ -51,14 +53,23 @@ RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完
  - [x] InternVL3-2B
  - [x] InternVL3.5-4B
  - [x] MiMo-VL-7B-RL
+ - [x] Gemma4
+ - [x] SmolVLM
+ - [x] SmolVLM2
+ - [x] UI_TARS
+ - [x] PaddleOCR VL
  - [x] Qwen3-Reranker-0.6B / 4B
  - [x] Qwen3-Embedding-4B
- - [x] GLM-Edge
- - [x] SmolVLM
- - [x] UI_TARS
  - [x] gme-Qwen2-VL-2B
+ - [x] Qwen3-ASR
+ - [x] Qwen3_TTS
+ - [x] VITS
+ - [x] Whisper
+ - [x] SenseVoice
+ - [x] Zipformer
  - [x] SigLIP
  - [x] SigLIP2
+ - [x] MetaCLIP2
  - [x] DINOv2
  - [x] DINOv3
  - [x] MobileNetV1 / V2
@@ -66,8 +77,7 @@ RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完
  - [x] YOLOv5 / YOLOv6 / YOLOv8
  - [x] YOLO-World
  - [x] Diffusion Policy
- - [x] Whisper
- - [x] SenseVoice
+ - [x] GR00T
 
 
 # 性能
@@ -85,25 +95,35 @@ RKNN3 SDK 提供了将 AI 模型部署到 RK1820/RK1828 协处理器所需的完
   - Python 3.10  
   - Python 3.12  
 
-# 最新版本：V1.0.0
+# 最新版本：V1.0.4
 
 
 
-# 更新日志  
+# 更新日志
 
-## V1.0.0
-- 大幅提升LLM/ViT性能，LLM Decode性能整体提升超过15%
-- 扩展模型支持范围，新增适配 Qwen3-VL / Qwen2.5-Omni(Thinker) / GLM Edge / SmolVLM 等模型
-- 支持连板精度分析
-- 支持数据传输与推理并行
-- 支持 mRoPE
-- 支持 Function Call 功能
-- 支持 YUV 格式输入
-- rkllm3 server 新增支持 embedding 模型，并兼容音频输入
-- 支持多核多模型同时推理
-- 支持用户在协处理器上自定义模型后处理
-- 优化exSDPA、exMatMul、Resize、Transpose等算子实现
-- 提供RKNN3 Toolkit Lite工具包，支持在开发板上进行Python API调用
+## V1.0.4
+- 新增 RK3572 平台支持 (Beta)
+- 新增 Windows 平台支持
+- 新增以太网通信类型支持
+- 新增设备休眠/唤醒支持
+- 新增服务端自动选择通信方式
+- 新增流式权重加载支持
+- 新增模型加密支持
+- 新增 LoRA 支持
+- 新增 session 暂停/恢复功能
+- 新增 session input callback 功能
+- 新增多 session 并行运行支持
+- 新增 KVCache 导入/导出接口
+- 新增组件版本兼容性校验
+- 新增 Qwen3 TTS 语音合成模型
+- 新增 Qwen3-ASR 语音识别模型
+- 新增 VITS 音频合成模型
+- 新增 Zipformer 模型
+- 新增 MetaCLIP2 模型
+- 新增 Gemma4 多模态模型
+- 新增 GR00T 模型
+- 新增 PaddleOCR VL 模型
+- 新增 SmolVLM2 视觉语言模型
 
 
 # 反馈与社区支持  

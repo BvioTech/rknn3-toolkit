@@ -23,6 +23,8 @@
 2. 将 `Qwen2.5-VL-3B-llm.embed.bin` 放到可访问路径，并确认 embedding 的尺寸和脚本中 `VOCAB_SIZE` 一致。
 3. 把 tokenizer 文件夹（例如 `qwen2_5_VL_3B`）放在 `examples/Qwen2.5VL/` 下或使用 HuggingFace 名称进行在线加载。
 
+注意：Tokenizer 建议从 HuggingFace 下载原始模型文件，并参照已有`qwen2_5_VL_3B`文件夹里面内容，将必要的 JSON 配置文件复制到对应目录中。
+
 ## 3. 运行示例脚本
 
 脚本 `test.py` 支持以下命令行参数：

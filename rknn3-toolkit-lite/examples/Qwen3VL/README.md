@@ -8,7 +8,9 @@
 - LLM embed：/xxx/Qwen3-VL-2B-llm.embed.bin
 - Tokenizer 目录：examples/Qwen3VL/qwen3_VL_2B
 
-如果你使用不同路径，请在运行脚本时用命令行参数覆盖（见下文）。
+注意：
+1. `transformers`由于模型的版本限制最好使用4.57.1
+2. 如果你使用不同路径，请在运行脚本时用命令行参数覆盖（见下文）。
 
 ## 1. 运行环境
 
@@ -25,6 +27,8 @@
 2. 导出 LLM 子模块为 ONNX，并生成 `.rknn` 与 `.weight`，同时导出 `llm.embed.bin`（embedding 文件）以及 tokenizer（可为 GGUF/Tokenizer 目录）。
 
 导出完成后，将模型文件放到设备或路径下。
+
+注意：Tokenizer 建议从 HuggingFace 下载原始模型文件，并参照已有`qwen3_VL_2B`文件夹里面内容，将必要的 JSON 配置文件复制到对应目录中。
 
 ## 3. 运行示例脚本
 

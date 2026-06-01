@@ -1,0 +1,4 @@
+2b3db52161cf47271b49180481d5dad0  rknn3_toolkit_lite-1.0.4-cp310-cp310-linux_aarch64.whl
+08ee8a4f4fc2f18bc1e815e934e5122a  rknn3_toolkit_lite-1.0.4-cp311-cp311-linux_aarch64.whl
+4f81cf4ec164af533e001e7d0f9becd8  rknn3_toolkit_lite-1.0.4-cp312-cp312-linux_aarch64.whl
+072503df1cbb98228c264015188d0dfa  rknn3_toolkit_lite-1.0.4-cp39-cp39-linux_aarch64.whl

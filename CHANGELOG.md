@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## V1.0.4
+- Added RK3572 platform support (Beta)
+- Added Windows platform support
+- Added Ethernet communication type support
+- Added device suspension and wake-up support
+- Added server-side auto-select communication method
+- Added streaming weight loading support
+- Added model encryption support
+- Added LoRA support
+- Added session pause/resume support
+- Added session input callback support
+- Added multi-session parallel running support
+- Added KVCache import/export interface
+- Added module version compatibility check
+- Added Qwen3 TTS text-to-speech model
+- Added Qwen3-ASR speech recognition model
+- Added VITS audio synthesis model
+- Added Zipformer model
+- Added MetaCLIP2 model
+- Added Gemma4 multimodal model
+- Added GR00T model
+- Added PaddleOCR VL model
+- Added SmolVLM2 vision-language model
+
 ## v1.0.0
 
 - Significantly improved LLM/ViT performance; overall LLM decode performance improved by more than 15%.

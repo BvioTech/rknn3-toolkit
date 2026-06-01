@@ -30,10 +30,10 @@ def llm_logitsprocessor(input_ids, logits, args={}):
     do_sample = args.get('do_sample', False)
 
     warpers = [
-        TemperatureLogitsWarper(temperature), 
+        TemperatureLogitsWarper(temperature),
         RepetitionPenaltyLogitsProcessor(repetition_penalty) if input_ids is not None else None,
-        TopKLogitsWarper(top_k=top_k), 
-        TopPLogitsWarper(top_p=top_p), 
+        TopKLogitsWarper(top_k=top_k),
+        TopPLogitsWarper(top_p=top_p),
         ]
 
     for warper in warpers:
@@ -52,7 +52,7 @@ def llm_logitsprocessor(input_ids, logits, args={}):
 if __name__ == '__main__':
 
     from argparse import ArgumentParser
-    parser = ArgumentParser(description="Export Qwen/Qwen2.5 llm to RKNN model") 
+    parser = ArgumentParser(description="Export Qwen/Qwen2.5 llm to RKNN model")
     parser.add_argument("--onnx_path", type=str, help="onnx model path", required=False, default=ONNX_MODEL)
     parser.add_argument("--config", type=str, help="config file path", required=False, default=LLM_CONFIG)
     parser.add_argument("--rknn_path", type=str, help="output rknn model path", required=False, default=RKNN_MODEL)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     # pre-process config
     print('--> Config model')
-    rknn.config(target_platform='rk1820', 
+    rknn.config(target_platform='rk1820',
                 quantized_dtype='w4a16', quantized_algorithm='grq', quantized_method='group32',
                 # profile_mode=True # if accuracy analysis is needed, set profile_mode=True
                 )

@@ -41,20 +41,17 @@ first_token = None
 def result_callback(userdata, result_ptr, state):
     global tokenizer, first_token
 
-    # 函数静态变量（首次调用时初始化）
     if not hasattr(result_callback, "accumulated_tokens"):
         result_callback.accumulated_tokens = []
         result_callback.last_output_text = ""
 
     def decode_safe(tokens):
-        """用 tokenizer 解码并移除可能的半截替换字符（�）以确保不打印不完整 UTF-8。"""
         text = tokenizer.decode(tokens, skip_special_tokens=True, clean_up_tokenization_spaces=False)
-        # 遇到替换字符则截到第一个替换字符前（避免打印半截字符）
-        return text.split('�', 1)[0] if '�' in text else text
+        return text.split('\ufffd', 1)[0] if '\ufffd' in text else text
 
     # ERROR
     if state == 5:
-        print("\n\n[错误] 推理过程中发生错误")
+        print("\n\nError occurred during inference")
         return 0
 
     # FINISH / STOP / MAX_TOKEN
@@ -66,7 +63,7 @@ def result_callback(userdata, result_ptr, state):
                 if new_part:
                     print(new_part, end="", flush=True)
             except Exception as e:
-                print(f"\n[Decode错误: {e}] 剩余tokens: {len(result_callback.accumulated_tokens)}", flush=True)
+                print(f"\n[Decode error: {e}]", flush=True)
         result_callback.accumulated_tokens.clear()
         result_callback.last_output_text = ""
         msg = {2: "Finished", 3: "Stop", 4: "Max new token reached"}.get(state, "Unknown")
@@ -78,14 +75,13 @@ def result_callback(userdata, result_ptr, state):
         print("\n\nWaiting for UTF-8 encoded character")
         return 0
 
-    # NORMAL（累积并尝试打印安全前缀）
+    # NORMAL
     if state == 0:
         n = result_ptr.contents.num_tokens
-        # 取新 tokens（保留原有索引访问方式以兼容 C 结构）
         new_tokens = [result_ptr.contents.token_ids[i] for i in range(n)]
         result_callback.accumulated_tokens.extend(new_tokens)
-        if first_token == None:
-           first_token = time.perf_counter()
+        if first_token is None:
+            first_token = time.perf_counter()
         try:
             safe_text = decode_safe(result_callback.accumulated_tokens)
             new_part = safe_text[len(result_callback.last_output_text):]
@@ -93,7 +89,7 @@ def result_callback(userdata, result_ptr, state):
                 print(new_part, end="", flush=True)
                 result_callback.last_output_text += new_part
         except Exception as e:
-            print(f"\n[临时Decode错误: {e}]，等待更多tokens", flush=True)
+            print(f"\n[Temp decode error: {e}], waiting for more tokens", flush=True)
             return 0
 
     return 0
@@ -116,17 +112,17 @@ def tokenizer_callback(userdata, text_ptr, text_len, tokens_ptr, n_tokens_max):
     return n_tokens
 
 
-def embed_callback(userdata, tokens_ptr, num_tokens, embded, length):
+def embed_callback(userdata, tokens_ptr, num_tokens, embed, length):
     global embeds_data
     embedding_dim = embeds_data.shape[1]
 
     expected_len = num_tokens * embedding_dim * np.dtype(np.float16).itemsize    
     if length != expected_len:
-        print("invalid embded buffer")
+        print("invalid embed buffer")
         return -1
 
     dst = np.ctypeslib.as_array(
-        ctypes.cast(embded, ctypes.POINTER(ctypes.c_uint16)),
+        ctypes.cast(embed, ctypes.POINTER(ctypes.c_uint16)),
         shape=(num_tokens * embedding_dim,)
     ).view(np.float16)
 
