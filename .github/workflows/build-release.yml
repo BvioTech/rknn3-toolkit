@@ -1,0 +1,78 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Verify tag matches version file
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          FILE_VERSION=$(tr -d '\n' < version | xargs)
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$FILE_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: tag $GITHUB_REF_NAME does not match version file ($FILE_VERSION)"
+            exit 1
+          fi
+
+      - name: Build .deb
+        run: bash scripts/package.sh
+
+      - name: Generate checksum
+        run: |
+          for f in *.deb; do
+            sha256sum "$f" > "$f.sha256"
+          done
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-files-arm64
+          path: |
+            *.deb
+            *.sha256
+          retention-days: 1
+
+  release:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-files-arm64
+          path: .
+
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            *.deb
+            *.sha256
+
+      - name: Notify apt repo
+        env:
+          SECRET: ${{ secrets.APT_WEBHOOK_SECRET }}
+          HOOK_URL: https://deb.violoop.ai/hook/release
+        run: |
+          BODY=$(jq -cn --arg r "${{ github.repository }}" --arg t "${{ github.ref_name }}" \
+            '{repo:$r, tag:$t}')
+          SIG=sha256=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$SECRET" -hex | awk '{print $2}')
+          curl -fsS --retry 3 --retry-delay 5 --max-time 30 \
+            -X POST "$HOOK_URL" \
+            -H "Content-Type: application/json" \
+            -H "X-Hub-Signature-256: $SIG" \
+            --data "$BODY"
